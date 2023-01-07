@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter.ttk import Combobox
+from infinite_scroll_parsing import inf_scr_prs
 
 class App(tk.Tk):
     def __init__(self):
@@ -16,7 +17,7 @@ class App(tk.Tk):
 
         self.combo1 = Combobox(self)
         self.combo1.place(anchor='center', relx=0.5, rely=0.18)
-        self.combo1['values'] = ('Parse from hot','doesnt work')
+        self.combo1['values'] = ('Parse from hot','Parse from best')
         self.combo1.current(0)
 
         self.combo2 = Combobox(self)
@@ -32,6 +33,10 @@ class App(tk.Tk):
     def btn1_clicked(self):
         self.lbl2 = tk.Label(self, text="Done!", font=('Arial', 18))
         self.lbl2.place(anchor='center', relx=0.5, rely=0.6)
+        parse_from = f"https://pikabu.ru/{self.combo1.get().split(' ')[2]}"
+        page_num = self.combo2.get().split(' ')[1]
+        inf_scr_prs(parse_from,page_num)
+
 
 
 if __name__ == '__main__':
