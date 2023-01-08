@@ -1,6 +1,9 @@
 import tkinter as tk
 from tkinter.ttk import Combobox
 from infinite_scroll_parsing import inf_scr_prs
+from data_manage import save_results
+
+import sqlite3
 
 class App(tk.Tk):
     def __init__(self):
@@ -35,13 +38,18 @@ class App(tk.Tk):
         self.lbl2.place(anchor='center', relx=0.5, rely=0.6)
         #start parsing
         parse_from = f"https://pikabu.ru/{self.combo1.get().split(' ')[2]}"
-        page_num = str(self.combo2.get().split(' ')[1])
-        page_num = 1
+        page_num = int(self.combo2.get().split(' ')[1])
+
         result = inf_scr_prs(parse_from, page_num)
 
         #show result
-        if result[0] == -1: self.lbl2.configure(text=f'Oops!\n{result[1]}')
-        else: self.lbl2.configure(text=f'Done!\n We have parsed {result[1]} posts')
+        if result[0] == -1:
+            self.lbl2.configure(text=f'Oops!\n{result[1]}')
+        else:
+            self.lbl2.configure(text=f'Done!\n We have parsed {result[1]} posts')
+            save_results(result[0], 'txt')
+
+
 
 if __name__ == '__main__':
     app = App()
