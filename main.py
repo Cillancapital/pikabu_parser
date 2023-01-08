@@ -3,7 +3,6 @@ from tkinter.ttk import Combobox
 from infinite_scroll_parsing import inf_scr_prs
 from data_manage import save_results
 
-import sqlite3
 
 class App(tk.Tk):
     def __init__(self):
