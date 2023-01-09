@@ -5,8 +5,7 @@ def inf_scr_prs(parse_from="https://pikabu.ru/", page_num=1):
     '''
     :param parse_from:
     :param page_num:
-    :return: data array, posts number.
-    status = -1 in case error
+    :return: data array, posts number / -1, error name
     '''
 
     # get the feedkey
@@ -26,16 +25,22 @@ def inf_scr_prs(parse_from="https://pikabu.ru/", page_num=1):
             r1 = requests.get(url_to_parse, params={'q': 'goog'}, headers={'User-Agent': 'Chrome/108.0.0.0'})
 
             # split to stories
-            raw_separated_posts = r1.text.split('<!--story_')[1::2]
+            raw_separated_posts = r1.text.split('_start-->')[1:]
 
             # skip adds, keep posts
             for j in range(len(raw_separated_posts)):
                 if "story story_tags-at-top" in raw_separated_posts[j]:
                     pass
                 else:
-                    success_data.append(raw_to_useful(raw_separated_posts[j]))
-        return success_data, len(success_data)
+                    # success_data.append(raw_to_useful(raw_separated_posts[j]))
+                    success_data.append(raw_separated_posts[j])
+            print(f'page {i} is parsed')
     except: return -1, 'Long parsing error'
+
+    for i in range(len(success_data)):
+        success_data[i] = raw_to_useful(success_data[i])
+    return success_data, len(success_data)
+
 def raw_to_useful(raw_post):
     # todo works good but need to check
     '''
@@ -59,9 +64,18 @@ def raw_to_useful(raw_post):
     for i in range(len(useful_data)):
         useful_data[i] = useful_data[i].split('=')[1]
 
+    # для постов из свежего добавляеи дата рейтинг 0
+
+    if len(useful_data) == 3:
+        useful_data.insert(1, '0')
+
+    if useful_data[2] == '\\u0410\\u043d\\u043e\\u043d\\u0438\\u043c':
+        useful_data[2] = f"Аноним"
+
     # очистка ссылки
     good_link = useful_data[3].replace(f'%2F', f'/').replace(f'%3A', f':')
     useful_data[3] = good_link
 
 
     return useful_data
+
