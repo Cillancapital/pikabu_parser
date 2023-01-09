@@ -51,8 +51,6 @@ class App(tk.Tk):
                                      f"from pikabu.ru/{self.combo1.get().split(' ')[2]}")
             save_results(result[0], 'txt')
 
-
-
 if __name__ == '__main__':
     app = App()
     app.mainloop()

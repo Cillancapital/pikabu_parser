@@ -76,6 +76,5 @@ def raw_to_useful(raw_post):
     good_link = useful_data[3].replace(f'%2F', f'/').replace(f'%3A', f':')
     useful_data[3] = good_link
 
-
     return useful_data
 
