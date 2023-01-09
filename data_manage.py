@@ -13,3 +13,13 @@ def save_results(data_array, mode='txt'):
     elif mode == 'db':
         pass
 
+def load_results_txt():
+    try:
+        with open("parsed_pikabu.txt", "r") as file:
+            data = file.readlines()
+        data_to_work_with = []
+        for each in data:
+            data_to_work_with.append(each[:-1].split(" "))
+        return data_to_work_with
+    except:
+        return -1
