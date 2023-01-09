@@ -11,6 +11,6 @@ All parsed info saves to txt file.
   
  Requirements:
   1) tkinter
-  2) tkinter.ttk
+  2) lxml
   3) requests
-  4) bs4
+  4) BeautifulSoup4
