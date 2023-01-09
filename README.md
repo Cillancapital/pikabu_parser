@@ -6,6 +6,7 @@ The info you get is:
   2) post rating
   3) author
   4) post URL
+ 
 All parsed info saves to txt file.
   
  Requirements:
