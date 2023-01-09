@@ -70,7 +70,7 @@ def raw_to_useful(raw_post):
         useful_data.insert(1, '0')
 
     if useful_data[2] == '\\u0410\\u043d\\u043e\\u043d\\u0438\\u043c':
-        useful_data[2] = f"Аноним"
+        useful_data[2] = f"Anonim"
 
     # очистка ссылки
     good_link = useful_data[3].replace(f'%2F', f'/').replace(f'%3A', f':')
