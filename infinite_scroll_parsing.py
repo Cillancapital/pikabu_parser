@@ -77,4 +77,3 @@ def raw_to_useful(raw_post):
     useful_data[3] = good_link
 
     return useful_data
-

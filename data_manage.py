@@ -23,3 +23,4 @@ def load_results_txt():
         return data_to_work_with
     except:
         return -1
+
