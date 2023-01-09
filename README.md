@@ -1,4 +1,5 @@
 Pikabu.ru parser
+Парсер пикабу
 
 The app allows you to parse up to ~800 posts from /hot, /best and /new site sections.
 The info you get is:
