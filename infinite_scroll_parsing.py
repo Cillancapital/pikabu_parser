@@ -9,20 +9,20 @@ def inf_scr_prs(parse_from="https://pikabu.ru/", page_num=1):
     '''
 
     # get the feedkey
-    # Chrome/108.0.0.0 or Mozilla/5.0
+    # Chrome/108.0.0.0 or Mozilla/5.0 or Dalvik/2.1.0
     try:
-        r = requests.get(parse_from, params={'q': 'goog'}, headers={'User-Agent': 'Chrome/108.0.0.0'})
+        r = requests.get(parse_from, params={'q': 'goog'}, headers={'User-Agent': 'Dalvik/2.1.0'})
         soup = BeautifulSoup(r.text, "lxml")
         all_stats = soup.find('main', class_='main__inner').find('script').text
         feed_key = all_stats[all_stats.find('feedKey') + 10:-2]
-    except: return -1, 'Feedkey get error'
+    except: return -1, 'Feedkey error'
 
     # parse with good feedkey
     success_data = []
     try:
         for i in range(1, page_num + 1):
             url_to_parse = f'https://pikabu.ru/ajax/?key={feed_key}&page={i}'
-            r1 = requests.get(url_to_parse, params={'q': 'goog'}, headers={'User-Agent': 'Chrome/108.0.0.0'})
+            r1 = requests.get(url_to_parse, params={'q': 'goog'}, headers={'User-Agent': 'Dalvik/2.1.0'})
 
             # split to stories
             raw_separated_posts = r1.text.split('_start-->')[1:]
@@ -32,10 +32,9 @@ def inf_scr_prs(parse_from="https://pikabu.ru/", page_num=1):
                 if "story story_tags-at-top" in raw_separated_posts[j]:
                     pass
                 else:
-                    # success_data.append(raw_to_useful(raw_separated_posts[j]))
                     success_data.append(raw_separated_posts[j])
-            print(f'page {i} is parsed')
-    except: return -1, 'Long parsing error'
+            # print(f'page {i} is parsed')
+    except: return -1, "Parsing error :(\nSeems like DDoS-Guard has blocked you..."
 
     for i in range(len(success_data)):
         success_data[i] = raw_to_useful(success_data[i])

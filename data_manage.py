@@ -1,4 +1,6 @@
 import sqlite3
+
+
 def save_results(data_array, mode='txt'):
     '''
     :param data_array:
@@ -23,4 +25,3 @@ def load_results_txt():
         return data_to_work_with
     except:
         return -1
-
